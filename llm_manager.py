@@ -19,36 +19,36 @@ class LLMManager:
         )
     
     def _initialize_prompts(self) -> Dict[str, ChatPromptTemplate]:
-        """Initialize prompt templates."""
+        
         return {
             "legal_assistant": ChatPromptTemplate.from_template(LEGAL_ASSISTANT_PROMPT),
             "legal_analysis": ChatPromptTemplate.from_template(LEGAL_ANALYSIS_PROMPT)
         }
     
     def create_document_chain(self, prompt_type: str = "legal_assistant"):
-        """Create a document chain for processing documents."""
+        
         return create_stuff_documents_chain(
             self.llm,
             self.prompts[prompt_type]
         )
     
     def create_retrieval_chain(self, retriever, prompt_type: str = "legal_assistant"):
-        """Create a retrieval chain for RAG."""
+     
         document_chain = self.create_document_chain(prompt_type)
         return create_retrieval_chain(retriever, document_chain)
     
     def generate_response(self, prompt: str) -> str:
-        """Generate a response using the LLM."""
+   
         return self.llm.invoke(prompt).content
     
     def analyze_legal_text(self, text: str) -> Dict[str, Any]:
-        """Analyze legal text using the LLM."""
+     
         prompt = self.prompts["legal_analysis"].format(input=text)
         response = self.generate_response(prompt)
         return self._parse_legal_analysis(response)
     
     def _parse_legal_analysis(self, response: str) -> Dict[str, Any]:
-        """Parse the legal analysis response into structured data."""
+       
         # Implement parsing logic based on the expected response format
         # This is a placeholder implementation
         return {

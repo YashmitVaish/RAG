@@ -13,13 +13,11 @@ class RAGManager:
     
     def process_query(self, query: str, chat_history: List[Dict[str, str]] = None) -> Dict[str, Any]:
         """Process a query using the RAG pipeline."""
-        # Get retriever
+        
         retriever = self.vector_store.get_retriever()
         
-        # Create retrieval chain
         retrieval_chain = self.llm_manager.create_retrieval_chain(retriever)
         
-        # Process the query
         response = retrieval_chain.invoke({
             "input": query,
             "chat_history": chat_history or []
@@ -32,13 +30,11 @@ class RAGManager:
     
     def analyze_legal_document(self, text: str) -> Dict[str, Any]:
         """Analyze a legal document using the RAG pipeline."""
-        # Process the text
+        
         documents = self.text_processor.process_legal_text(text)
         
-        # Add to vector store
         self.vector_store.add_documents(documents)
-        
-        # Analyze using LLM
+    
         analysis = self.llm_manager.analyze_legal_text(text)
         
         return {

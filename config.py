@@ -1,16 +1,16 @@
 from decouple import config
 from typing import Dict, Any
 
-# API Keys
+
 PINECONE_API_KEY = config('PINECONE_API_KEY')
 GROQ_API_KEY = config('GROQ_API_KEY')
 OPENAI_API_KEY = config('OPENAI_API_KEY')
 
-# Model Configurations
+
 EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
 LLM_MODEL = "llama3-8b-8192"
 
-# Vector Store Configurations
+
 VECTOR_STORE_CONFIG: Dict[str, Any] = {
     "index_name": "search-engine",
     "search_kwargs": {
@@ -19,14 +19,14 @@ VECTOR_STORE_CONFIG: Dict[str, Any] = {
     }
 }
 
-# Text Processing Configurations
+
 TEXT_SPLITTER_CONFIG: Dict[str, Any] = {
     "chunk_size": 1000,
     "chunk_overlap": 200,
     "separators": ["\n\n", "\n", ".", "!", "?", ",", " ", ""]
 }
 
-# Prompt Templates
+
 LEGAL_ASSISTANT_PROMPT = """
 You are an intelligent legal assistant specializing in commercial law and case analysis.
 Use the provided context to answer the user's question accurately and professionally.
